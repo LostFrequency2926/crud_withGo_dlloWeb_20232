@@ -162,6 +162,33 @@ func (db *Database) readBookById(writer http.ResponseWriter, req *http.Request) 
 	writer.Write(bookJson)
 }
 
+func (db *Database) readBookByCategory(writer http.ResponseWriter, req *http.Request) {
+	vars := mux.Vars(req)
+	category := vars["category"]
+
+	// Formatear el valor de category para asegurarse de que esté correctamente escapado
+	formattedCategory := fmt.Sprintf("'%s'", category)
+
+	query := fmt.Sprintf("SELECT * FROM books_table WHERE categories=%s LIMIT $1 OFFSET $2;", formattedCategory)
+
+	books, _, err := db.repo.List(context.TODO(), query, 100, 0)
+	if err != nil {
+		writer.WriteHeader(http.StatusNotFound)
+		writer.Write([]byte(fmt.Sprintf("Fallo al leer el libro con id %s", category)))
+		log.Fatalln(err.Error())
+		return
+	}
+	bookJson, err := json.Marshal(books)
+	if err != nil {
+		http.Error(writer, "Falla al codificar los datos", http.StatusInternalServerError)
+		log.Fatalln(err.Error())
+		return
+	}
+	writer.WriteHeader(http.StatusOK)
+	writer.Header().Set("Content-Type", "application/json")
+	writer.Write(bookJson)
+}
+
 func (db *Database) deleteBookById(writer http.ResponseWriter, req *http.Request) {
 	vars := mux.Vars(req)
 	id := vars["id"]
@@ -216,6 +243,7 @@ func main() {
 	router.Handle("/books/{id}", http.HandlerFunc(db.readBookById)).Methods(http.MethodGet)
 	router.Handle("/books/{id}", http.HandlerFunc(db.updateBookById)).Methods(http.MethodPatch)
 	router.Handle("/books/{id}", http.HandlerFunc(db.deleteBookById)).Methods(http.MethodDelete)
+	router.Handle("/books/categories/{category}", http.HandlerFunc(db.readBookByCategory)).Methods(http.MethodGet)
 
 	http.ListenAndServe(":8080", router)
 }
