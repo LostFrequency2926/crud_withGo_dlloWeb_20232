@@ -11,6 +11,7 @@ import (
 
 	repositorio "crud_withGo_dlloWeb_20232/repository"
 
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/jmoiron/sqlx"
 	"github.com/lib/pq"
@@ -245,7 +246,15 @@ func main() {
 	router.Handle("/books/{id}", http.HandlerFunc(db.deleteBookById)).Methods(http.MethodDelete)
 	router.Handle("/books/categories/{category}", http.HandlerFunc(db.readBookByCategory)).Methods(http.MethodGet)
 
-	http.ListenAndServe(":8080", router)
+	//http.ListenAndServe(":8080", router)
+
+	// Configurar CORS
+	allowedOrigins := handlers.AllowedOrigins([]string{"http://127.0.0.1:5500"}) // Reemplaza con la URL de tu aplicación frontend
+	allowedMethods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE"})
+
+	// Configurar el servidor HTTP
+	http.Handle("/", handlers.CORS(allowedOrigins, allowedMethods)(router))
+	http.ListenAndServe(":8080", nil)
 }
 
 // {

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Página de ejercicios para una actividad evaluativa, creada por Daniel Muñoz, estudiante de Ingeniería de Telecomunicaciones en la Universidad de Antioquia."
+    />
+    <meta
+      name="keywords"
+      content="actividad evaluativa, página web, ejercicio, Daniel Muñoz, Ingeniería de Telecomunicaciones, Universidad de Antioquia"
+    />
+    <meta name="author" content="Daniel Muñoz" />
+    <meta name="language" content="English" />
+    <meta name="generator" content="Visual Studio Code" />
+
+    <link rel="stylesheet" type="text/css" href="styles/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <script src="script.js"></script>
+
+    <title>WikiPokemon - Home</title>
+  </head>
+  <body>
+
+    <header>
+      <a href="index.html">
+          <div class="logo">
+              <!-- <img src="imgs/logo.png" alt="Tu Logo" class="logo-icon"> -->
+              <!-- <p class="logo-text">LF Designs</p> -->
+          </div>
+      </a>
+      <nav>
+          <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="searchById.html">Search By Id</a></li>
+              <li><a href="searchByCategory.html">Search By Category</a></li>
+              <li><a href="createNewBook.html">Add New Book</a></li>
+          </ul>
+      </nav>
+      <div class="search">
+          <input type="text" placeholder="Search...">
+          <img src="imgs/lupa.png" alt="Lupa" class="lupa-icon">
+          <button>Buscar</button>
+      </div>
+  </header>
+
+  <div id="booksContainer" class="cards-containers">
+
+    </div>
+
+  </body>
+</html>

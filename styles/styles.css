@@ -1,0 +1,192 @@
+/* ___________________________________Importo fuentes personalizadas___________________________________________________*/
+/* Importo una fuente que descargue para estilizar la letra de mis enlaces*/
+@font-face {
+  font-family: "Handmade";
+  src: url(../fonts/Handmade.otf);
+}
+
+@font-face {
+  font-family: "Pokemon";
+  src: url(../fonts/PokemonSolid.ttf);
+}
+
+@font-face {
+  font-family: "NextBro";
+  src: url(../fonts/TrashTalk.ttf);
+}
+
+/* ___________________________________Estilos para barra de navegacion solicitada ___________________________________________________*/
+/* Con este estilo busco que los elementos, logo, nav(enlaces) y busqueda se dispongan de manera horizontal y en el formato space-between */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+/* ___________________________________Estilos para el nav___________________________________________________*/
+
+/* Con este estilo busco disponer la lista de enlaces horizontalmente ya que esta se orienta verticalmente por defecto  */
+nav ul {
+  list-style: none;
+  display: flex;
+  margin: 20;
+  padding: 0;
+}
+
+/* como los enlaces quedan pegados le aplico un margin a la derecha a cada elemento de la lista para lograr separacion entre ellos */
+nav li {
+  margin-right: 40px;
+  cursor: pointer;
+}
+
+/* a cada elemento a o link del nav le quitare el subrayado, defino el color blaco y agrego una transicion para el hover la defino en 0.5s */
+nav a {
+  font-family: "Handmade", Arial;/*aplico la fuente customizada, sino es posible cargarla se aplicara el estilo Arial*/
+  font-size: xx-large;
+  text-decoration: none; 
+  color: white; 
+  font-weight: bold;
+  transition: color 1s;
+}
+
+/* Al pasar el mouse por encima de los enlaces los resalto de azul */
+nav a:hover {
+  color: #007bff;
+}
+
+
+
+/* ___________________________________disposicion de los elemnetos en el body ___________________________________________________*/
+/* Con este estilo busco que los elementos, logo, nav(enlaces) y busqueda se dispongan de manera horizontal y en el formato space-between */
+/* .container-ppal-body {
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff8dc;
+  padding: 30px;
+  margin: auto;
+} */
+
+/* body {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff8dc;
+  justify-content: space-evenly;
+  align-items: center;
+} */
+
+
+body {
+  background-color: #fff8dc;
+}
+
+/* ___________________________________Estilos para la caja de búsqueda, icono lupa y botón ___________________________________________________*/
+
+/* uso flex para la disposicion de los elementos ademas de redondear y definir color blanco para generar el efecto de que el boton y el cuadro de input estan en un mismo elemento*/
+.search {
+  display: flex;
+  background: #fff;
+  border-radius: 25px;
+  padding: 5px;
+  border-color: #4682b4;
+  border-style: solid;
+}
+
+/* redondeo y redimenciono el cuadro de busqueda */
+.search input {
+  border: none;
+  border-radius: 25px;
+  padding: 10px;
+  width: 200px;
+  outline: none;
+}
+
+/* Estilo del icono de lupa */
+.lupa-icon {
+  width: 25px;
+  height: 25px;
+  margin: auto;
+}
+
+/* le doy color al boton de busqueda, lo redondeo y establezco el cursor en pointer como se solicita */
+.search button {
+  background-color: #4682b4;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 5px 15px;
+  cursor: pointer;
+}
+
+/* Aplico los efectos al boton, los cuales son un cambio de color a una tonalidad de verde, una iluminacion en tono naranja y aplico los tiempos de transicion */
+.search button:hover {
+  background-color: #4caf50;
+  box-shadow: 0 0 20px rgba(255, 196, 0, 0.3);
+  transition: background-color 0.1s, color 0.5s, box-shadow 0.3s;
+}
+
+
+
+
+
+/* ___________________________________container general de las cards ___________________________________________________*/
+
+
+.cards-containers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Puedes ajustar esto según tus necesidades */
+}
+
+
+
+
+
+
+
+/* ___________________________________Estilos para la card de cada libro ___________________________________________________*/
+.card {
+  width: 300px;
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.card img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 10px;
+}
+
+.card p {
+  margin-bottom: 8px;
+  max-height: 100px; /* Puedes ajustar esta altura según tus necesidades */
+  overflow: hidden;
+}
+
+.card .description {
+  overflow-y: auto;
+  max-height: none; /* Esto anula la altura máxima para permitir el desplazamiento */
+}
+
+.card strong {
+  font-weight: bold;
+}
