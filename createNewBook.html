@@ -22,26 +22,68 @@
   <body>
 
     <header>
-      <a href="index.html">
-          <div class="logo">
-              <!-- <img src="imgs/logo.png" alt="Tu Logo" class="logo-icon"> -->
-              <!-- <p class="logo-text">LF Designs</p> -->
-          </div>
-      </a>
       <nav>
-          <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="searchById.html">Search By Id</a></li>
-              <li><a href="searchByCategory.html">Search By Category</a></li>
-              <li><a href="createNewBook.html">Add New Book</a></li>
-          </ul>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="searchByName.html">Search By Name</a></li>
+          <li><a href="searchByCategory.html">Search By Category</a></li>
+          <li><a href="createNewBook.html">Add New Book</a></li>
+      </ul>
       </nav>
-      <div class="search">
-          <input type="text" placeholder="Search...">
-          <img src="imgs/lupa.png" alt="Lupa" class="lupa-icon">
-          <button>Buscar</button>
-      </div>
   </header>
+
+  <div id="addBookForm">
+    <h2>Add New Book</h2>
+    <form action="tu_ruta_de_backend_para_guardar_datos.php" method="POST">
+
+      <label for="genre">Genre:</label>
+      <input type="text" id="genre" name="genre" required>
+
+      <label for="etag">ETag:</label>
+      <input type="text" id="etag" name="etag" required>
+
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" required>
+
+      <label for="subtitle">Subtitle:</label>
+      <input type="text" id="subtitle" name="subtitle" required>
+
+      <label for="authors">Authors:</label>
+      <input type="text" id="authors" name="authors" required>
+
+      <label for="publisher">Publisher:</label>
+      <input type="text" id="publisher" name="publisher" required>
+
+      <label for="published_date">Published Date:</label>
+      <input type="text" id="published_date" name="published_date" required>
+
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" required></textarea>
+
+      <label for="page_count">Page Count:</label>
+      <input type="text" id="page_count" name="page_count" required>
+
+      <label for="print_type">Print Type:</label>
+      <input type="text" id="print_type" name="print_type" required>
+
+      <label for="categories">Categories:</label>
+      <input type="text" id="categories" name="categories" required>
+
+      <label for="maturity_rating">Maturity Rating:</label>
+      <input type="text" id="maturity_rating" name="maturity_rating" required>
+
+      <label for="language">Language:</label>
+      <input type="text" id="language" name="language" required>
+
+      <label for="pdf_download_link">PDF Download Link:</label>
+      <input type="text" id="pdf_download_link" name="pdf_download_link" required>
+
+      <label for="thumbnail">Thumbnail:</label>
+      <input type="text" id="thumbnail" name="thumbnail" required>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
 
   <div id="booksContainer" class="cards-containers">
 

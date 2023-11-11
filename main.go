@@ -179,6 +179,71 @@ func (db *Database) readBookByCategory(writer http.ResponseWriter, req *http.Req
 		log.Fatalln(err.Error())
 		return
 	}
+
+	if len(books) == 0 {
+		writer.WriteHeader(http.StatusNotFound)
+		writer.Write([]byte(fmt.Sprintf("No se encontró ningún libro con la categoria %s", category)))
+		return
+	}
+
+	bookJson, err := json.Marshal(books)
+	if err != nil {
+		http.Error(writer, "Falla al codificar los datos", http.StatusInternalServerError)
+		log.Fatalln(err.Error())
+		return
+	}
+	writer.WriteHeader(http.StatusOK)
+	writer.Header().Set("Content-Type", "application/json")
+	writer.Write(bookJson)
+}
+
+func (db *Database) readBookByName(writer http.ResponseWriter, req *http.Request) {
+	vars := mux.Vars(req)
+	title := vars["title"]
+
+	// Formatear el valor de category para asegurarse de que esté correctamente escapado
+	formattedCategory := fmt.Sprintf("'%s'", title)
+
+	query := fmt.Sprintf("SELECT * FROM books_table WHERE title=%s LIMIT $1 OFFSET $2;", formattedCategory)
+
+	books, _, err := db.repo.List(context.TODO(), query, 100, 0)
+	if err != nil {
+		writer.WriteHeader(http.StatusNotFound)
+		writer.Write([]byte(fmt.Sprintf("Fallo al leer el libro con id %s", title)))
+		log.Fatalln(err.Error())
+		return
+	}
+
+	if len(books) == 0 {
+		writer.WriteHeader(http.StatusNotFound)
+		writer.Write([]byte(fmt.Sprintf("No se encontró ningún libro con el título %s", title)))
+		return
+	}
+
+	bookJson, err := json.Marshal(books)
+	if err != nil {
+		http.Error(writer, "Falla al codificar los datos", http.StatusInternalServerError)
+		log.Fatalln(err.Error())
+		return
+	}
+	writer.WriteHeader(http.StatusOK)
+	writer.Header().Set("Content-Type", "application/json")
+	writer.Write(bookJson)
+}
+
+func (db *Database) listAllCategories(writer http.ResponseWriter, req *http.Request) {
+
+	query := "SELECT DISTINCT categories FROM books_table;"
+
+	books, _, err := db.repo.List(context.TODO(), query, 100, 0)
+
+	if err != nil {
+		writer.WriteHeader(http.StatusNotFound)
+		writer.Write([]byte(fmt.Sprintf("Fallo al leer las categorias")))
+		log.Fatalln(err.Error())
+		return
+	}
+
 	bookJson, err := json.Marshal(books)
 	if err != nil {
 		http.Error(writer, "Falla al codificar los datos", http.StatusInternalServerError)
@@ -245,12 +310,14 @@ func main() {
 	router.Handle("/books/{id}", http.HandlerFunc(db.updateBookById)).Methods(http.MethodPatch)
 	router.Handle("/books/{id}", http.HandlerFunc(db.deleteBookById)).Methods(http.MethodDelete)
 	router.Handle("/books/categories/{category}", http.HandlerFunc(db.readBookByCategory)).Methods(http.MethodGet)
+	router.Handle("/books/names/{title}", http.HandlerFunc(db.readBookByName)).Methods(http.MethodGet)
+	router.Handle("/books/categories", http.HandlerFunc(db.listAllCategories)).Methods(http.MethodGet)
 
 	//http.ListenAndServe(":8080", router)
 
 	// Configurar CORS
-	allowedOrigins := handlers.AllowedOrigins([]string{"http://127.0.0.1:5500"}) // Reemplaza con la URL de tu aplicación frontend
-	allowedMethods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE"})
+	allowedOrigins := handlers.AllowedOrigins([]string{"*"}) // Reemplaza con la URL de tu aplicación frontend
+	allowedMethods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"})
 
 	// Configurar el servidor HTTP
 	http.Handle("/", handlers.CORS(allowedOrigins, allowedMethods)(router))

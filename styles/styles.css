@@ -18,12 +18,18 @@
 /* ___________________________________Estilos para barra de navegacion solicitada ___________________________________________________*/
 /* Con este estilo busco que los elementos, logo, nav(enlaces) y busqueda se dispongan de manera horizontal y en el formato space-between */
 header {
+  margin-bottom: 40px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   background-color: #333;
   padding: 10px 20px;
   border-radius: 5px;
+}
+
+header a img{
+  width: 50px;
+
 }
 
 /* ___________________________________Estilos para el nav___________________________________________________*/
@@ -44,10 +50,10 @@ nav li {
 
 /* a cada elemento a o link del nav le quitare el subrayado, defino el color blaco y agrego una transicion para el hover la defino en 0.5s */
 nav a {
-  font-family: "Handmade", Arial;/*aplico la fuente customizada, sino es posible cargarla se aplicara el estilo Arial*/
+  font-family: "Handmade", Arial; /*aplico la fuente customizada, sino es posible cargarla se aplicara el estilo Arial*/
   font-size: xx-large;
-  text-decoration: none; 
-  color: white; 
+  text-decoration: none;
+  color: white;
   font-weight: bold;
   transition: color 1s;
 }
@@ -57,29 +63,7 @@ nav a:hover {
   color: #007bff;
 }
 
-
-
 /* ___________________________________disposicion de los elemnetos en el body ___________________________________________________*/
-/* Con este estilo busco que los elementos, logo, nav(enlaces) y busqueda se dispongan de manera horizontal y en el formato space-between */
-/* .container-ppal-body {
-  flex-wrap: wrap;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  background-color: #fff8dc;
-  padding: 30px;
-  margin: auto;
-} */
-
-/* body {
-  display: flex;
-  flex-direction: column;
-  background-color: #fff8dc;
-  justify-content: space-evenly;
-  align-items: center;
-} */
-
 
 body {
   background-color: #fff8dc;
@@ -92,13 +76,14 @@ body {
   display: flex;
   background: #fff;
   border-radius: 25px;
-  padding: 5px;
+  padding: 20px;
   border-color: #4682b4;
   border-style: solid;
 }
 
 /* redondeo y redimenciono el cuadro de busqueda */
 .search input {
+  margin: auto;
   border: none;
   border-radius: 25px;
   padding: 10px;
@@ -106,12 +91,6 @@ body {
   outline: none;
 }
 
-/* Estilo del icono de lupa */
-.lupa-icon {
-  width: 25px;
-  height: 25px;
-  margin: auto;
-}
 
 /* le doy color al boton de busqueda, lo redondeo y establezco el cursor en pointer como se solicita */
 .search button {
@@ -130,28 +109,20 @@ body {
   transition: background-color 0.1s, color 0.5s, box-shadow 0.3s;
 }
 
-
-
-
-
 /* ___________________________________container general de las cards ___________________________________________________*/
 
-
 .cards-containers {
+  flex: 4;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between; /* Puedes ajustar esto según tus necesidades */
 }
 
-
-
-
-
-
-
 /* ___________________________________Estilos para la card de cada libro ___________________________________________________*/
+
 .card {
-  width: 300px;
+  width: 700px;
+  height: 330px;
   border: 1px solid #ddd;
   padding: 15px;
   margin: 15px;
@@ -159,6 +130,21 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: #fff;
   transition: transform 0.3s ease-in-out;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.container-img {
+  margin-bottom: 10px;
+  flex: 1;
+}
+
+.card-info {
+  flex: 3;
+  padding-left: 20px; /* Espaciado entre la imagen y la información */
 }
 
 .card:hover {
@@ -170,23 +156,103 @@ body {
   margin-bottom: 10px;
 }
 
-.card img {
-  max-width: 100%;
-  height: auto;
+.container-img img {
+  width:100%;
+  height: 100%;
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .card p {
   margin-bottom: 8px;
-  max-height: 100px; /* Puedes ajustar esta altura según tus necesidades */
+  max-height: 100px;
   overflow: hidden;
 }
 
 .card .description {
   overflow-y: auto;
-  max-height: none; /* Esto anula la altura máxima para permitir el desplazamiento */
+  max-height: none;
 }
 
 .card strong {
   font-weight: bold;
 }
+
+.delete-button {
+  width: 80px;
+  height: 30px;
+  top: 10px; /* Ajusta según tu diseño */
+  right: 10px; /* Ajusta según tu diseño */
+  background-color: white; /* Color de fondo del botón de eliminación */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.card:hover .delete-button {
+  background-color: #c82333;
+}
+
+/* ___________________________________Estilos parael formulario ___________________________________________________*/
+
+#addBookForm {
+  flex: 1;
+  align-self: flex-start;
+  padding: 60px;
+  background-color: white;
+  border-radius: 25px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 500px;
+}
+
+#addBookForm h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 5px;
+}
+
+input,
+textarea {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+}
+
+button {
+  background-color: #4682b4;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #4caf50;
+}
+
+
+
+.container-ppal {
+  display: flex;
+  flex-direction: row;
+  align-items: top;
+}
+
+
