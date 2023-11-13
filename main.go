@@ -149,13 +149,13 @@ func (db *Database) readBookById(writer http.ResponseWriter, req *http.Request) 
 	if err != nil {
 		writer.WriteHeader(http.StatusNotFound)
 		writer.Write([]byte(fmt.Sprintf("Fallo al leer el libro con id %s", id)))
-		log.Fatalln(err.Error())
+		// log.Fatalln(err.Error())
 		return
 	}
 	bookJson, err := json.Marshal(book)
 	if err != nil {
 		http.Error(writer, "Falla al codificar los datos", http.StatusInternalServerError)
-		log.Fatalln(err.Error())
+		// log.Fatalln(err.Error())
 		return
 	}
 	writer.WriteHeader(http.StatusOK)
@@ -176,7 +176,7 @@ func (db *Database) readBookByCategory(writer http.ResponseWriter, req *http.Req
 	if err != nil {
 		writer.WriteHeader(http.StatusNotFound)
 		writer.Write([]byte(fmt.Sprintf("Fallo al leer el libro con id %s", category)))
-		log.Fatalln(err.Error())
+		// log.Fatalln(err.Error())
 		return
 	}
 
@@ -189,7 +189,7 @@ func (db *Database) readBookByCategory(writer http.ResponseWriter, req *http.Req
 	bookJson, err := json.Marshal(books)
 	if err != nil {
 		http.Error(writer, "Falla al codificar los datos", http.StatusInternalServerError)
-		log.Fatalln(err.Error())
+		// log.Fatalln(err.Error())
 		return
 	}
 	writer.WriteHeader(http.StatusOK)
@@ -210,7 +210,7 @@ func (db *Database) readBookByName(writer http.ResponseWriter, req *http.Request
 	if err != nil {
 		writer.WriteHeader(http.StatusNotFound)
 		writer.Write([]byte(fmt.Sprintf("Fallo al leer el libro con id %s", title)))
-		log.Fatalln(err.Error())
+		// log.Fatalln(err.Error())
 		return
 	}
 
@@ -223,7 +223,7 @@ func (db *Database) readBookByName(writer http.ResponseWriter, req *http.Request
 	bookJson, err := json.Marshal(books)
 	if err != nil {
 		http.Error(writer, "Falla al codificar los datos", http.StatusInternalServerError)
-		log.Fatalln(err.Error())
+		// log.Fatalln(err.Error())
 		return
 	}
 	writer.WriteHeader(http.StatusOK)
@@ -240,14 +240,14 @@ func (db *Database) listAllCategories(writer http.ResponseWriter, req *http.Requ
 	if err != nil {
 		writer.WriteHeader(http.StatusNotFound)
 		writer.Write([]byte(fmt.Sprintf("Fallo al leer las categorias")))
-		log.Fatalln(err.Error())
+		// log.Fatalln(err.Error())
 		return
 	}
 
 	bookJson, err := json.Marshal(books)
 	if err != nil {
 		http.Error(writer, "Falla al codificar los datos", http.StatusInternalServerError)
-		log.Fatalln(err.Error())
+		// log.Fatalln(err.Error())
 		return
 	}
 	writer.WriteHeader(http.StatusOK)
