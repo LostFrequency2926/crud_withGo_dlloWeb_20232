@@ -26,6 +26,19 @@ document.addEventListener("DOMContentLoaded", function () {
   const thumbnailInput = document.getElementById("thumbnail");
   const addNewBookButton = document.getElementById("addNewBook");
 
+  const newBookIcon = document.getElementById("new-book-icon")
+  const newBookForm = document.getElementById("addBookForm")
+
+  newBookIcon.addEventListener("click", async function () {
+    if(newBookForm.style.display == "grid"){
+      newBookForm.style.display = "none";
+    }else{
+      newBookForm.style.display = "grid";
+    }
+    
+
+  });
+
   async function getAllBooks() {
     try {
       const response = await axios.get(
@@ -386,6 +399,13 @@ editForm.innerHTML = `
 
       // Puedes agregar un listener para el botón de actualización dentro del formulario de edición
       const updateButton = document.getElementById("updateBook");
+      const cancelButton = document.getElementById("cancelForm");
+
+      cancelButton.addEventListener("click", async function (event) {
+        event.preventDefault();
+        editForm.style.display = "none";
+        overlay.style.display = "none";
+      });
       updateButton.addEventListener("click", async function (event) {
         event.preventDefault();
 

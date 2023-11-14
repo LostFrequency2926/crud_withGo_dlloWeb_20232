@@ -22,10 +22,10 @@
   </head>
   <body>
     <header>
-
-      <a href="index.html">
-      <img src="imgs/home.png" alt="inicio">
-    </a>
+      <a class="icon-nav" href="index.html">
+        <img src="imgs/home.png" alt="inicio" />
+      </a>
+      <div class="container-search">
       <div class="search">
         <input
           id="nameBookToSearch"
@@ -43,6 +43,7 @@
         />
         <button id="search-button-category">Search</button>
       </div>
+    </div>
     </header>
 
     <div class="container-ppal">
@@ -70,7 +71,12 @@
           <input type="text" id="publisher" name="publisher" required />
 
           <label for="published_date">Published Date:</label>
-          <input type="text" id="published_date" name="published_date" required />
+          <input
+            type="text"
+            id="published_date"
+            name="published_date"
+            required
+          />
 
           <label for="description">Description:</label>
           <textarea id="description" name="description" required></textarea>
@@ -85,13 +91,23 @@
           <input type="text" id="categories" name="categories" required />
 
           <label for="maturity_rating">Maturity Rating:</label>
-          <input type="text" id="maturity_rating" name="maturity_rating" required/>
+          <input
+            type="text"
+            id="maturity_rating"
+            name="maturity_rating"
+            required
+          />
 
           <label for="language">Language:</label>
           <input type="text" id="language" name="language" required />
 
           <label for="pdf_download_link">PDF Download Link:</label>
-          <input type="text" id="pdf_download_link" name="pdf_download_link" required />
+          <input
+            type="text"
+            id="pdf_download_link"
+            name="pdf_download_link"
+            required
+          />
 
           <label for="thumbnail">Thumbnail:</label>
           <input type="text" id="thumbnail" name="thumbnail" required />
@@ -101,4 +117,11 @@
       </div>
     </div>
   </body>
+
+  <img
+    id="new-book-icon"
+    class="add-book-icon"
+    src="imgs/agregar.png"
+    alt="agregar libro"
+  />
 </html>

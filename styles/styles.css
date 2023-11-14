@@ -1,8 +1,8 @@
 /* ___________________________________Importo fuentes personalizadas___________________________________________________*/
 /* Importo una fuente que descargue para estilizar la letra de mis enlaces*/
 @font-face {
-  font-family: "Handmade";
-  src: url(../fonts/Handmade.otf);
+  font-family: "yeiner";
+  src: url(../fonts/blackolives.ttf);
 }
 
 @font-face {
@@ -16,7 +16,6 @@
 }
 
 /* ___________________________________Estilos para barra de navegacion solicitada ___________________________________________________*/
-/* Con este estilo busco que los elementos, logo, nav(enlaces) y busqueda se dispongan de manera horizontal y en el formato space-between */
 header {
   margin-bottom: 40px;
   display: flex;
@@ -71,12 +70,24 @@ body {
 
 /* ___________________________________Estilos para la caja de búsqueda, icono lupa y botón ___________________________________________________*/
 
+.container-search{
+flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  
+}
+
+.icon-nav{
+  flex: 1;
+}
+
 /* uso flex para la disposicion de los elementos ademas de redondear y definir color blanco para generar el efecto de que el boton y el cuadro de input estan en un mismo elemento*/
 .search {
   display: flex;
   background: #fff;
   border-radius: 25px;
-  padding: 20px;
+  padding: 10px;
   border-color: #4682b4;
   border-style: solid;
 }
@@ -123,7 +134,7 @@ body {
 
 .card {
   position: relative;
-  width: 570px;
+  width: 400px;
   height: auto;
   border: 1px solid #ddd;
   padding: 15px;
@@ -136,10 +147,12 @@ body {
 
 .card:hover .delete-button{
   background-color: red;
+  display: flex;
 }
 
 .card:hover .edit-button{
   background-color: #4CAF50;
+  display: flex;
 }
 
 .container {
@@ -171,7 +184,7 @@ body {
 }
 
 .card-info p {
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   max-height: 100px;
   overflow: auto;
 }
@@ -182,8 +195,8 @@ body {
 
 .delete-button {
   position: absolute;
-  width: 80px;
-  height: 30px;
+  width: 60px;
+  height: 25px;
   top: 10px; 
   right: 10px; 
   background-color: white; 
@@ -192,12 +205,13 @@ body {
   border-radius: 5px;
   padding: 5px 10px;
   cursor: pointer;
+  display: none;
 }
 
 .edit-button {
   position: absolute;
-  width: 80px;
-  height: 30px;
+  width: 60px;
+  height: 25px;
   top: 45px; 
   right: 10px; 
   background-color: white; 
@@ -206,11 +220,13 @@ body {
   border-radius: 5px;
   padding: 5px 10px;
   cursor: pointer;
+  display: none;
 }
 
 /* ___________________________________Estilos parael formulario ___________________________________________________*/
 
 #addBookForm {
+  display: none;
   flex: 2;
   align-self: flex-start;
   padding: 60px;
@@ -224,6 +240,7 @@ body {
 #addBookForm h2 {
   text-align: center;
   margin-bottom: 20px;
+  font-family: "yeiner", Arial;
 }
 
 form {
@@ -268,6 +285,14 @@ button:hover {
   align-items: top;
 }
 
+.add-book-icon {
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  bottom: 25px;
+  right: 25px;
+  cursor: pointer;
+}
 
 
 
@@ -294,7 +319,7 @@ button:hover {
 
 .edit-popup {
   position: absolute;
-  top: 75%;
+  top: 700px;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #fff;
