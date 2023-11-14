@@ -316,11 +316,10 @@ func main() {
 	//http.ListenAndServe(":8080", router)
 
 	// Configurar CORS
-	allowedOrigins := handlers.AllowedOrigins([]string{"*"}) // Reemplaza con la URL de tu aplicación frontend
-	allowedMethods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"})
+	corsMiddleware := handlers.CORS(handlers.AllowedOrigins([]string{"*"}) /* Reemplaza con la URL de tu aplicación frontend */, handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}))
 
 	// Configurar el servidor HTTP
-	http.Handle("/", handlers.CORS(allowedOrigins, allowedMethods)(router))
+	http.Handle("/", corsMiddleware(router))
 	http.ListenAndServe(":8080", nil)
 }
 

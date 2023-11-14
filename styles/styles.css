@@ -112,17 +112,19 @@ body {
 /* ___________________________________container general de las cards ___________________________________________________*/
 
 .cards-containers {
-  flex: 4;
+  flex: 3;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between; /* Puedes ajustar esto según tus necesidades */
+  justify-content: flex-start;
 }
+
 
 /* ___________________________________Estilos para la card de cada libro ___________________________________________________*/
 
 .card {
-  width: 700px;
-  height: 330px;
+  position: relative;
+  width: 570px;
+  height: auto;
   border: 1px solid #ddd;
   padding: 15px;
   margin: 15px;
@@ -132,19 +134,31 @@ body {
   transition: transform 0.3s ease-in-out;
 }
 
+.card:hover .delete-button{
+  background-color: red;
+}
+
+.card:hover .edit-button{
+  background-color: #4CAF50;
+}
+
 .container {
   display: flex;
   flex-direction: row;
 }
 
 .container-img {
-  margin-bottom: 10px;
-  flex: 1;
+  display: flex;
+  align-items: center;
+  text-align: center;
 }
 
-.card-info {
-  flex: 3;
-  padding-left: 20px; /* Espaciado entre la imagen y la información */
+.container-img img{
+  margin: auto;
+}
+
+.container .card-info {
+  padding-left: 20px;
 }
 
 .card:hover {
@@ -156,22 +170,10 @@ body {
   margin-bottom: 10px;
 }
 
-.container-img img {
-  width:100%;
-  height: 100%;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.card p {
+.card-info p {
   margin-bottom: 8px;
   max-height: 100px;
-  overflow: hidden;
-}
-
-.card .description {
-  overflow-y: auto;
-  max-height: none;
+  overflow: auto;
 }
 
 .card strong {
@@ -179,11 +181,12 @@ body {
 }
 
 .delete-button {
+  position: absolute;
   width: 80px;
   height: 30px;
-  top: 10px; /* Ajusta según tu diseño */
-  right: 10px; /* Ajusta según tu diseño */
-  background-color: white; /* Color de fondo del botón de eliminación */
+  top: 10px; 
+  right: 10px; 
+  background-color: white; 
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -191,14 +194,24 @@ body {
   cursor: pointer;
 }
 
-.card:hover .delete-button {
-  background-color: #c82333;
+.edit-button {
+  position: absolute;
+  width: 80px;
+  height: 30px;
+  top: 45px; 
+  right: 10px; 
+  background-color: white; 
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
 }
 
 /* ___________________________________Estilos parael formulario ___________________________________________________*/
 
 #addBookForm {
-  flex: 1;
+  flex: 2;
   align-self: flex-start;
   padding: 60px;
   background-color: white;
@@ -244,7 +257,7 @@ button {
 }
 
 button:hover {
-  background-color: #4caf50;
+  background-color:#4CAF50;
 }
 
 
@@ -256,3 +269,98 @@ button:hover {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+/* Agrega un fondo oscuro para oscurecer el fondo principal */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Ajusta el valor alpha para la opacidad */
+  z-index: 999;
+}
+
+.edit-popup {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  max-width: 600px; /* Ajusta el ancho máximo según sea necesario */
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 20px;
+}
+
+.buttons-form{
+  display: flex;
+  flex-direction: row;
+}
+
+.buttons-form .cancelButtonForm{
+  background-color: red;
+}
+
+.buttons-form .editButtonForm{
+  background-color: #4CAF50;
+}
+
+.buttons-form button{
+margin: 5px;
+width: 100%;
+}
+
+.edit-popup h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.edit-popup form {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-popup label {
+  margin-bottom: 5px;
+}
+
+.edit-popup input,
+.edit-popup textarea {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.edit-popup button {
+  background-color: #4682b4;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.edit-popup button:hover {
+  background-color: #4caf50;
+}
