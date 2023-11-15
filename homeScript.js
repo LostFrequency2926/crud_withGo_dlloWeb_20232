@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById("booksContainer").innerHTML = "";
     try {
-      const response = await axios.get(`http://localhost:8080/books`);
+      const response = await axios.get(`https://crud-withgo-dlloweb-20232.fly.dev/books`);
       const books = response.data;
       const booksJson = JSON.stringify(books);
       //console.log(booksJson)
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
       console.log(bookName);
       const response = await axios.get(
-        `http://localhost:8080/books/names/${bookName}`
+        `https://crud-withgo-dlloweb-20232.fly.dev/books/names/${bookName}`
       );
       const books = response.data;
       const booksJson = JSON.stringify(books);
@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
       console.log(bookCategory);
       const response = await axios.get(
-        `http://localhost:8080/books/categories/${bookCategory}`
+        `https://crud-withgo-dlloweb-20232.fly.dev/books/categories/${bookCategory}`
       );
       const books = response.data;
       const booksJson = JSON.stringify(books);
@@ -243,7 +243,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Realizar la solicitud POST utilizando Axios
       const response = await axios.post(
-        "http://localhost:8080/books",
+        "https://crud-withgo-dlloweb-20232.fly.dev/books",
         postData
       );
       // Manejar la respuesta si es necesario
@@ -278,7 +278,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Realiza la solicitud de eliminación utilizando Axios
     axios
-      .delete(`http://localhost:8080/books/${bookId}`)
+      .delete(`https://crud-withgo-dlloweb-20232.fly.dev/books/${bookId}`)
       .then((response) => {
         // Maneja la respuesta según sea necesario
         console.log(`Libro con ID ${bookId} eliminado`);
@@ -316,7 +316,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     try {
       // Usa await para esperar a que la Promesa se resuelva
-      const response = await axios.get(`http://localhost:8080/books/${bookId}`);
+      const response = await axios.get(`https://crud-withgo-dlloweb-20232.fly.dev/books/${bookId}`);
 
       // Obtén bookData de la respuesta
       const bookData = response.data;
@@ -452,7 +452,7 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
       // Realizar la solicitud PATCH utilizando Axios
       const response = await axios.patch(
-        `http://localhost:8080/books/${bookId}`,
+        `https://crud-withgo-dlloweb-20232.fly.dev/books/${bookId}`,
         updatedBookData
       );
   
