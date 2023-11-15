@@ -26,29 +26,25 @@ document.addEventListener("DOMContentLoaded", function () {
   const thumbnailInput = document.getElementById("thumbnail");
   const addNewBookButton = document.getElementById("addNewBook");
 
-  const newBookIcon = document.getElementById("new-book-icon")
-  const newBookForm = document.getElementById("addBookForm")
+  const newBookIcon = document.getElementById("new-book-icon");
+  const newBookForm = document.getElementById("addBookForm");
 
   newBookIcon.addEventListener("click", async function () {
-    if(newBookForm.style.display == "grid"){
+    if (newBookForm.style.display == "grid") {
       newBookForm.style.display = "none";
-    }else{
+    } else {
       newBookForm.style.display = "grid";
     }
-    
-
   });
 
   async function getAllBooks() {
+
+    document.getElementById("booksContainer").innerHTML = "";
     try {
-      const response = await axios.get(
-        `https://crud-withgo-dlloweb-20232.fly.dev/books`
-      );
+      const response = await axios.get(`http://localhost:8080/books`);
       const books = response.data;
       const booksJson = JSON.stringify(books);
       //console.log(booksJson)
-
-      document.getElementById("booksContainer").innerHTM = "";
 
       // Itera sobre cada libro y crea una card
       books.forEach((book) => {
@@ -56,15 +52,15 @@ document.addEventListener("DOMContentLoaded", function () {
           <div class="card" data-book-id="${book.id}">
             <div class="container">
               <div class="container-img">
-                <img src="${book.thumbnail}" alt="Portada del libro">
+                <img src="${book.thumbnail}" alt="Book Cover">
               </div>
               <div class="card-info">
                 <h2>${book.title}</h2>
-                <p><strong>Editorial:</strong> ${book.publisher}</p>
-                <p><strong>Año de lanzamiento:</strong> ${book.published_date}</p>
-                <p><strong>Autor:</strong> ${book.authors}</p>
-                <p><strong>Descripción:</strong> ${book.description}</p>
-                <p><strong>Categoría:</strong> ${book.categories}</p>
+                <p><strong>Publisher:</strong> ${book.publisher}</p>
+                <p><strong>Release Year:</strong> ${book.published_date}</p>
+                <p><strong>Author:</strong> ${book.authors}</p>
+                <p><strong>Description:</strong> ${book.description}</p>
+                <p><strong>Category:</strong> ${book.categories}</p>
               </div>
               <button class="delete-button">Delete</button>
               <button class="edit-button">Edit</button>
@@ -87,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
       console.log(bookName);
       const response = await axios.get(
-        `https://crud-withgo-dlloweb-20232.fly.dev/books/names/${bookName}`
+        `http://localhost:8080/books/names/${bookName}`
       );
       const books = response.data;
       const booksJson = JSON.stringify(books);
@@ -101,19 +97,15 @@ document.addEventListener("DOMContentLoaded", function () {
           <div class="card" data-book-id="${book.id}">
             <div class="container">
               <div class="container-img">
-                <img src="${book.thumbnail}" alt="Portada del libro">
+                <img src="${book.thumbnail}" alt="Book Cover">
               </div>
               <div class="card-info">
                 <h2>${book.title}</h2>
-                <p><strong>Editorial:</strong> ${book.publisher}</p>
-                <p><strong>Año de lanzamiento:</strong> ${book.published_date}</p>
-                <p><strong>Autor:</strong> ${book.authors}</p>
-                <div class="description-container">
-                  <div class="description-scroll">
-                    <div class="description"><strong>Descripción:</strong> ${book.description}</div>
-                  </div>
-                </div>
-                <p><strong>Categoría:</strong> ${book.categories}</p>
+                <p><strong>Publisher:</strong> ${book.publisher}</p>
+                <p><strong>Release Year:</strong> ${book.published_date}</p>
+                <p><strong>Author:</strong> ${book.authors}</p>
+                <p><strong>Description:</strong> ${book.description}</p>
+                <p><strong>Category:</strong> ${book.categories}</p>
               </div>
               <button class="delete-button">Delete</button>
               <button class="edit-button">Edit</button>
@@ -152,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
       console.log(bookCategory);
       const response = await axios.get(
-        `https://crud-withgo-dlloweb-20232.fly.dev/books/categories/${bookCategory}`
+        `http://localhost:8080/books/categories/${bookCategory}`
       );
       const books = response.data;
       const booksJson = JSON.stringify(books);
@@ -166,17 +158,18 @@ document.addEventListener("DOMContentLoaded", function () {
           <div class="card" data-book-id="${book.id}">
             <div class="container">
               <div class="container-img">
-                <img src="${book.thumbnail}" alt="Portada del libro">
+                <img src="${book.thumbnail}" alt="Book Cover">
               </div>
               <div class="card-info">
                 <h2>${book.title}</h2>
-                <p><strong>Editorial:</strong> ${book.publisher}</p>
-                <p><strong>Año de lanzamiento:</strong> ${book.published_date}</p>
-                <p><strong>Autor:</strong> ${book.authors}</p>
-                <p><strong>Descripción:</strong> ${book.description}</p>
-                <p><strong>Categoría:</strong> ${book.categories}</p>
+                <p><strong>Publisher:</strong> ${book.publisher}</p>
+                <p><strong>Release Year:</strong> ${book.published_date}</p>
+                <p><strong>Author:</strong> ${book.authors}</p>
+                <p><strong>Description:</strong> ${book.description}</p>
+                <p><strong>Category:</strong> ${book.categories}</p>
               </div>
-              <button class="delete-button">Eliminar</button>
+              <button class="delete-button">Delete</button>
+              <button class="edit-button">Edit</button>
             </div>
           </div>
         `;
@@ -250,11 +243,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Realizar la solicitud POST utilizando Axios
       const response = await axios.post(
-        "https://crud-withgo-dlloweb-20232.fly.dev/books",
+        "http://localhost:8080/books",
         postData
       );
       // Manejar la respuesta si es necesario
       console.log("Solicitud POST exitosa:", response.data);
+
+      // Recargar la página después de que la solicitud sea exitosa
+      location.reload();
+
+      // Mostrar el mensaje en una ventana emergente
+      window.alert(`El libro ${titleValue} ha sido agregado`);
     } catch (error) {
       // Manejar errores en la solicitud
       console.error("Error en la solicitud POST:", error);
@@ -279,7 +278,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Realiza la solicitud de eliminación utilizando Axios
     axios
-      .delete(`https://crud-withgo-dlloweb-20232.fly.dev/books/${bookId}`)
+      .delete(`http://localhost:8080/books/${bookId}`)
       .then((response) => {
         // Maneja la respuesta según sea necesario
         console.log(`Libro con ID ${bookId} eliminado`);
@@ -317,9 +316,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     try {
       // Usa await para esperar a que la Promesa se resuelva
-      const response = await axios.get(
-        `https://crud-withgo-dlloweb-20232.fly.dev/books/${bookId}`
-      );
+      const response = await axios.get(`http://localhost:8080/books/${bookId}`);
 
       // Obtén bookData de la respuesta
       const bookData = response.data;
@@ -337,8 +334,8 @@ document.addEventListener("DOMContentLoaded", function () {
       overlay.classList.add("overlay");
       document.body.appendChild(overlay);
 
-// Crear el formulario de edición con los datos del libro
-editForm.innerHTML = `
+      // Crear el formulario de edición con los datos del libro
+      editForm.innerHTML = `
   <h2>Edit Book</h2>
   <form>
     <label for="edit_genre">Genre:</label>
@@ -393,7 +390,6 @@ editForm.innerHTML = `
   </form>
 `;
 
-
       // Agregar el formulario al cuerpo del documento
       document.body.appendChild(editForm);
 
@@ -411,53 +407,30 @@ editForm.innerHTML = `
 
         // Obtener los valores de los campos del formulario
         const updatedBookData = {
-          genre: document.getElementById("edit_genre").value,
-          etag: document.getElementById("edit_etag").value,
-          title: document.getElementById("edit_title").value,
-          subtitle: document.getElementById("edit_subtitle").value,
-          authors: document.getElementById("edit_authors").value,
-          publisher: document.getElementById("edit_publisher").value,
-          published_date: document.getElementById("edit_published_date").value,
-          description: document.getElementById("edit_description").value,
-          page_count: document.getElementById("edit_page_count").value,
-          print_type: document.getElementById("edit_print_type").value,
-          categories: document.getElementById("edit_categories").value,
-          maturity_rating: document.getElementById("edit_maturity_rating")
-            .value,
-          language: document.getElementById("edit_language").value,
-          pdf_download_link: document.getElementById("edit_pdf_download_link")
-            .value,
-          thumbnail: document.getElementById("edit_thumbnail").value,
+          "genero": `${document.getElementById("edit_genre").value}`,
+          "etag": `${document.getElementById("edit_etag").value}`,
+          "title": `${document.getElementById("edit_title").value}`,
+          "subtitle": `${document.getElementById("edit_subtitle").value}`,
+          "authors": `${document.getElementById("edit_authors").value}`,
+          "publisher": `${document.getElementById("edit_publisher").value}`,
+          "published_date": `${document.getElementById("edit_published_date").value}`,
+          "description": `${document.getElementById("edit_description").value}`,
+          "page_count": `${document.getElementById("edit_page_count").value}`,
+          "print_type": `${document.getElementById("edit_print_type").value}`,
+          "categories": `${document.getElementById("edit_categories").value}`,
+          "maturity_rating": `${document.getElementById("edit_maturity_rating").value}`,
+          "language": `${document.getElementById("edit_language").value}`,
+          "pdf_download_link": `${document.getElementById("edit_pdf_download_link").value}`,
+          "thumbnail": `${document.getElementById("edit_thumbnail").value}`
         };
 
-        try {
-          // Realizar la solicitud POST utilizando Axios
-          const response = await axios.patch(
-            `https://crud-withgo-dlloweb-20232.fly.dev/books/${bookId}`,
-            updatedBookData
-          );
-          // Manejar la respuesta si es necesario
-          console.log("Solicitud POST exitosa:", response.data);
-      
-          cerrarFormularioEdicion();
-        } catch (error) {
-          if (error.response) {
-            // El servidor respondió con un código de estado diferente de 2xx
-            console.log("Error de respuesta del servidor:", error.response.data);
-      
-            // Mostrar el mensaje en una ventana emergente
-            window.alert(error.response.data);
-          } else if (error.request) {
-            // La solicitud fue hecha pero no se recibió respuesta
-            console.log("No se recibió respuesta del servidor");
-          } else {
-            // Algo sucedió en la configuración de la solicitud que provocó un error
-            console.error("Error al configurar la solicitud:", error.message);
-          }
-        }
-      });
+        await actualizarLibro(bookId, updatedBookData);
 
-        
+        editForm.style.display = "none";
+        overlay.style.display = "none";
+
+        getAllBooks()
+      });
     } catch (error) {
       if (error.response) {
         // El servidor respondió con un código de estado diferente de 2xx
@@ -474,4 +447,43 @@ editForm.innerHTML = `
       }
     }
   }
+
+  async function actualizarLibro(bookId, updatedBookData) {
+    try {
+      // Realizar la solicitud PATCH utilizando Axios
+      const response = await axios.patch(
+        `http://localhost:8080/books/${bookId}`,
+        updatedBookData
+      );
+  
+      // Manejar la respuesta según sea necesario
+      console.log("Solicitud PATCH exitosa:", response.data);
+
+      window.alert("Successfully edited book")
+  
+    } catch (error) {
+      if (error.response) {
+        // El servidor respondió con un código de estado diferente de 2xx
+        console.log("Error de respuesta del servidor:", error.response.data);
+  
+        // Mostrar el mensaje de error al usuario
+        window.alert(error.response.data);
+      } else if (error.request) {
+        // La solicitud fue hecha pero no se recibió respuesta
+        console.log("No se recibió respuesta del servidor");
+  
+        // Mostrar un mensaje de error genérico al usuario
+        window.alert("Error al actualizar el libro. Inténtelo de nuevo más tarde.");
+      } else {
+        // Algo sucedió en la configuración de la solicitud que provocó un error
+        console.error("Error al configurar la solicitud:", error.message);
+  
+        // Mostrar un mensaje de error genérico al usuario
+        window.alert("Error al actualizar el libro. Inténtelo de nuevo más tarde.");
+      }
+    }
+  }
+
+
+  
 });

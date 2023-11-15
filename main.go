@@ -108,18 +108,18 @@ func (db *Database) updateBookById(writer http.ResponseWriter, req *http.Request
 	id := vars["id"]
 	body, err := io.ReadAll(req.Body)
 	if err != nil {
-		http.Error(writer, "Fallo al procesar la solicitud", http.StatusInternalServerError)
+		http.Error(writer, "Fallo al procesar la solicitud no se pudo leer el body", http.StatusInternalServerError)
 	}
 	defer req.Body.Close()
 	nuevosVAloresLibro := make(map[string]any)
 	err = json.Unmarshal(body, &nuevosVAloresLibro)
 	if err != nil {
-		http.Error(writer, "Fallo al procesar la solicitud", http.StatusInternalServerError)
+		http.Error(writer, "Fallo al procesar la solicitud no se pudo codificar a JSON", http.StatusInternalServerError)
 		return
 	}
 
 	if len(nuevosVAloresLibro) == 0 {
-		http.Error(writer, "Fallo al procesar la solicitud", http.StatusInternalServerError)
+		http.Error(writer, "Fallo al procesar la solicitud ultimo paso de extraccion de valores", http.StatusInternalServerError)
 		return
 	}
 
@@ -133,7 +133,7 @@ func (db *Database) updateBookById(writer http.ResponseWriter, req *http.Request
 	nuevosVAloresLibro["id"] = id
 	err = db.repo.Update(context.TODO(), realQuery, nuevosVAloresLibro)
 	if err != nil {
-		http.Error(writer, "Fallo al procesar la solicitud", http.StatusInternalServerError)
+		http.Error(writer, "Fallo al procesar la solicitud actualizar en BD: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 
@@ -149,13 +149,13 @@ func (db *Database) readBookById(writer http.ResponseWriter, req *http.Request) 
 	if err != nil {
 		writer.WriteHeader(http.StatusNotFound)
 		writer.Write([]byte(fmt.Sprintf("Fallo al leer el libro con id %s", id)))
-		// log.Fatalln(err.Error())
+		log.Fatalln(err.Error())
 		return
 	}
 	bookJson, err := json.Marshal(book)
 	if err != nil {
 		http.Error(writer, "Falla al codificar los datos", http.StatusInternalServerError)
-		// log.Fatalln(err.Error())
+		log.Fatalln(err.Error())
 		return
 	}
 	writer.WriteHeader(http.StatusOK)
@@ -176,7 +176,7 @@ func (db *Database) readBookByCategory(writer http.ResponseWriter, req *http.Req
 	if err != nil {
 		writer.WriteHeader(http.StatusNotFound)
 		writer.Write([]byte(fmt.Sprintf("Fallo al leer el libro con id %s", category)))
-		// log.Fatalln(err.Error())
+		log.Fatalln(err.Error())
 		return
 	}
 
@@ -189,7 +189,7 @@ func (db *Database) readBookByCategory(writer http.ResponseWriter, req *http.Req
 	bookJson, err := json.Marshal(books)
 	if err != nil {
 		http.Error(writer, "Falla al codificar los datos", http.StatusInternalServerError)
-		// log.Fatalln(err.Error())
+		log.Fatalln(err.Error())
 		return
 	}
 	writer.WriteHeader(http.StatusOK)
@@ -210,7 +210,7 @@ func (db *Database) readBookByName(writer http.ResponseWriter, req *http.Request
 	if err != nil {
 		writer.WriteHeader(http.StatusNotFound)
 		writer.Write([]byte(fmt.Sprintf("Fallo al leer el libro con id %s", title)))
-		// log.Fatalln(err.Error())
+		log.Fatalln(err.Error())
 		return
 	}
 
@@ -223,7 +223,7 @@ func (db *Database) readBookByName(writer http.ResponseWriter, req *http.Request
 	bookJson, err := json.Marshal(books)
 	if err != nil {
 		http.Error(writer, "Falla al codificar los datos", http.StatusInternalServerError)
-		// log.Fatalln(err.Error())
+		log.Fatalln(err.Error())
 		return
 	}
 	writer.WriteHeader(http.StatusOK)
@@ -240,14 +240,14 @@ func (db *Database) listAllCategories(writer http.ResponseWriter, req *http.Requ
 	if err != nil {
 		writer.WriteHeader(http.StatusNotFound)
 		writer.Write([]byte(fmt.Sprintf("Fallo al leer las categorias")))
-		// log.Fatalln(err.Error())
+		log.Fatalln(err.Error())
 		return
 	}
 
 	bookJson, err := json.Marshal(books)
 	if err != nil {
 		http.Error(writer, "Falla al codificar los datos", http.StatusInternalServerError)
-		// log.Fatalln(err.Error())
+		log.Fatalln(err.Error())
 		return
 	}
 	writer.WriteHeader(http.StatusOK)
@@ -313,14 +313,19 @@ func main() {
 	router.Handle("/books/names/{title}", http.HandlerFunc(db.readBookByName)).Methods(http.MethodGet)
 	router.Handle("/books/categories", http.HandlerFunc(db.listAllCategories)).Methods(http.MethodGet)
 
-	//http.ListenAndServe(":8080", router)
+	// http.ListenAndServe(":8080", router)
 
-	// Configurar CORS
-	corsMiddleware := handlers.CORS(handlers.AllowedOrigins([]string{"*"}) /* Reemplaza con la URL de tu aplicación frontend */, handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}))
+	// http.ListenAndServe(":8080",
+	// 	handlers.CORS(
+	// 		handlers.AllowedOrigins([]string{"*"}),
+	// 		handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}),
+	// 		handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}),
+	// 	)(router))
 
-	// Configurar el servidor HTTP
-	http.Handle("/", corsMiddleware(router))
-	http.ListenAndServe(":8080", nil)
+	headers := handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"})
+	methods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS", "PATCH", "DELETE"})
+	origins := handlers.AllowedOrigins([]string{"*"})
+	http.ListenAndServe(":8080", handlers.CORS(headers, methods, origins)(router))
 }
 
 // {
