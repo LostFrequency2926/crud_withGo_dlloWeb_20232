@@ -346,18 +346,18 @@ button:hover {
 
 
 .edit-popup {
-  height: auto;
-  position: absolute;
-  top: 2%;
+  margin-top: 5px;
+  margin-bottom: 5px;
   background-color: #fff;
   padding: 20px;
   border: 1px solid #ddd;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  max-width: 1200px; /* Ajusta el ancho máximo según sea necesario */
+  z-index: 1;
+  max-width: 1200px;
   width: 100%;
   box-sizing: border-box;
   border-radius: 20px;
+  overflow-y: auto;
 }
 
 @media(max-height: 770px){
@@ -380,9 +380,8 @@ button:hover {
   }
 
   .card {
-    position: relative;
-    width: 450px;
-    height: auto;
+    width: 560px;
+    height: 360px;
     border: 1px solid #ddd;
     padding: 15px;
     margin: 15px;
