@@ -1,13 +1,13 @@
 /* ___________________________________Importo fuentes personalizadas___________________________________________________*/
 /* Importo una fuente que descargue para estilizar la letra de mis enlaces*/
 @font-face {
-  font-family: "yeiner";
-  src: url(../fonts/blackolives.ttf);
+  font-family: "coolLetter";
+  src: url(../fonts/Aukrey\ mooa\ Demo.ttf);
 }
 
 @font-face {
-  font-family: "Pokemon";
-  src: url(../fonts/PokemonSolid.ttf);
+  font-family: "single";
+  src: url(../fonts/Sageffine.otf)
 }
 
 @font-face {
@@ -26,9 +26,10 @@ header {
   border-radius: 5px;
 }
 
-header a img{
-  width: 50px;
-
+header img{
+  max-width: 50px;
+  height: 50px;
+  flex: 3;
 }
 
 /* ___________________________________Estilos para el nav___________________________________________________*/
@@ -42,12 +43,11 @@ nav ul {
 }
 
 /* como los enlaces quedan pegados le aplico un margin a la derecha a cada elemento de la lista para lograr separacion entre ellos */
-nav li {
+/* nav li {
   margin-right: 40px;
   cursor: pointer;
-}
+} */
 
-/* a cada elemento a o link del nav le quitare el subrayado, defino el color blaco y agrego una transicion para el hover la defino en 0.5s */
 nav a {
   font-family: "Handmade", Arial; /*aplico la fuente customizada, sino es posible cargarla se aplicara el estilo Arial*/
   font-size: xx-large;
@@ -57,33 +57,25 @@ nav a {
   transition: color 1s;
 }
 
-/* Al pasar el mouse por encima de los enlaces los resalto de azul */
-nav a:hover {
-  color: #007bff;
-}
-
 /* ___________________________________disposicion de los elemnetos en el body ___________________________________________________*/
 
 body {
-  background-color: #fff8dc;
+  background-color: #d8f8e1;
 }
 
 /* ___________________________________Estilos para la caja de búsqueda, icono lupa y botón ___________________________________________________*/
 
 .container-search{
-flex: 1;
+  flex: 1;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content:flex-end;
   
-}
-
-.icon-nav{
-  flex: 1;
 }
 
 /* uso flex para la disposicion de los elementos ademas de redondear y definir color blanco para generar el efecto de que el boton y el cuadro de input estan en un mismo elemento*/
 .search {
+  margin-left: 10px;
   display: flex;
   background: #fff;
   border-radius: 25px;
@@ -134,7 +126,7 @@ flex: 1;
 
 .card {
   position: relative;
-  width: 400px;
+  width: 550px;
   height: auto;
   border: 1px solid #ddd;
   padding: 15px;
@@ -180,11 +172,14 @@ flex: 1;
 }
 
 .card h2 {
+  font-family: "coolLetter", Arial;
   font-size: 1.5em;
   margin-bottom: 10px;
 }
 
 .card-info p {
+  font-family: "single", Arial;
+  font-size: x-large;
   margin-bottom: 4px;
   max-height: 100px;
   overflow: auto;
@@ -209,7 +204,9 @@ flex: 1;
   display: none;
 }
 
-.edit-button {
+.edit-button {  
+  font-family: "coolLetter", Arial;
+  font-size: large;
   position: absolute;
   width: 60px;
   height: 25px;
@@ -222,6 +219,10 @@ flex: 1;
   padding: 5px 10px;
   cursor: pointer;
   display: none;
+}
+
+h2 {
+  font-family: "single", Arial;
 }
 
 /* ___________________________________Estilos parael formulario ___________________________________________________*/
@@ -239,9 +240,9 @@ flex: 1;
 }
 
 #addBookForm h2 {
+  font-family: "single", Arial;
   text-align: center;
   margin-bottom: 20px;
-  font-family: "yeiner", Arial;
 }
 
 form {
@@ -250,11 +251,18 @@ form {
 }
 
 label {
+  font-size: large;
+  font-family: "single", Arial;
   margin-bottom: 5px;
+  font-weight: bold;
 }
+
 
 input,
 textarea {
+  font-weight: bold;
+  font-size: large;
+  font-family: "single", Arial;
   padding: 10px;
   margin-bottom: 15px;
   border: 1px solid #ddd;
@@ -265,6 +273,8 @@ textarea {
 }
 
 button {
+  font-family: "coolLetter", Arial;
+  font-size: large;
   background-color: #4682b4;
   color: #fff;
   border: none;
@@ -354,6 +364,8 @@ button:hover {
 }
 
 .buttons-form{
+  font-family: "coolLetter", Arial;
+  font-size: large;
   display: flex;
   flex-direction: row;
 }
