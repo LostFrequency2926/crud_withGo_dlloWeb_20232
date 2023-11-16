@@ -180,16 +180,16 @@ document.addEventListener("DOMContentLoaded", function () {
     } catch (error) {
       if (error.response) {
         // El servidor respondió con un código de estado diferente de 2xx
-        console.log("Error de respuesta del servidor:", error.response.data);
+        console.log("Server response error:", error.response.data);
 
         // Mostrar el mensaje en una ventana emergente
         window.alert(error.response.data);
       } else if (error.request) {
         // La solicitud fue hecha pero no se recibió respuesta
-        console.log("No se recibió respuesta del servidor");
+        console.log("No response was received from the server");
       } else {
         // Algo sucedió en la configuración de la solicitud que provocó un error
-        console.error("Error al configurar la solicitud:", error.message);
+        console.error("Error configuring the request:", error.message);
       }
     }
   }
@@ -247,16 +247,16 @@ document.addEventListener("DOMContentLoaded", function () {
         postData
       );
       // Manejar la respuesta si es necesario
-      console.log("Solicitud POST exitosa:", response.data);
+      console.log("Successful POST request:", response.data);
 
       // Recargar la página después de que la solicitud sea exitosa
       location.reload();
 
       // Mostrar el mensaje en una ventana emergente
-      window.alert(`El libro ${titleValue} ha sido agregado`);
+      window.alert(`The book ${titleValue} has been added.`);
     } catch (error) {
       // Manejar errores en la solicitud
-      console.error("Error en la solicitud POST:", error);
+      console.error("Error in the POST request:", error);
     }
   }
   addNewBookButton.addEventListener("click", async function () {
@@ -285,13 +285,13 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("booksContainer").innerHTML = "";
 
         // Mostrar el mensaje en una ventana emergente
-        window.alert("Libro Eliminado");
+        window.alert("Book Deleted");
 
         // Aquí puedes actualizar la interfaz de usuario si es necesario
         getAllBooks();
       })
       .catch((error) => {
-        console.error(`Error al eliminar el libro con ID ${bookId}`, error);
+        console.error(`Error deleting book with ID ${bookId}`, error);
       });
   }
   // Agrega un listener al documento para manejar el evento click en cualquier botón de eliminar
@@ -336,66 +336,69 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Crear el formulario de edición con los datos del libro
       editForm.innerHTML = `
-  <h2>Edit Book</h2>
-  <form>
-    <label for="edit_genre">Genre:</label>
-    <input type="text" id="edit_genre" name="edit_genre" value="${bookData.genre}" required />
+      <h2>Edit Book</h2>
+      <div class="form-columns">
+        <div class="form-column">
+          <label for="edit_genre">Genre:</label>
+          <input type="text" id="edit_genre" name="edit_genre" value="${bookData.genre}" required />
+    
+          <label for="edit_etag">ETag:</label>
+          <input type="text" id="edit_etag" name="edit_etag" value="${bookData.etag}" required />
+    
+          <label for="edit_title">Title:</label>
+          <input type="text" id="edit_title" name="edit_title" value="${bookData.title}" required />
+    
+          <label for="edit_subtitle">Subtitle:</label>
+          <input type="text" id="edit_subtitle" name="edit_subtitle" value="${bookData.subtitle}" required />
+    
+          <label for="edit_authors">Authors:</label>
+          <input type="text" id="edit_authors" name="edit_authors" value="${bookData.authors}" required />
+    
+          <label for="edit_publisher">Publisher:</label>
+          <input type="text" id="edit_publisher" name="edit_publisher" value="${bookData.publisher}" required />
 
-    <label for="edit_etag">ETag:</label>
-    <input type="text" id="edit_etag" name="edit_etag" value="${bookData.etag}" required />
-
-    <label for="edit_title">Title:</label>
-    <input type="text" id="edit_title" name="edit_title" value="${bookData.title}" required />
-
-    <label for="edit_subtitle">Subtitle:</label>
-    <input type="text" id="edit_subtitle" name="edit_subtitle" value="${bookData.subtitle}" required />
-
-    <label for="edit_authors">Authors:</label>
-    <input type="text" id="edit_authors" name="edit_authors" value="${bookData.authors}" required />
-
-    <label for="edit_publisher">Publisher:</label>
-    <input type="text" id="edit_publisher" name="edit_publisher" value="${bookData.publisher}" required />
-
-    <label for="edit_published_date">Published Date:</label>
-    <input type="text" id="edit_published_date" name="edit_published_date" value="${bookData.published_date}" required />
-
-    <label for="edit_description">Description:</label>
-    <textarea id="edit_description" name="edit_description" required>${bookData.description}</textarea>
-
-    <label for="edit_page_count">Page Count:</label>
-    <input type="text" id="edit_page_count" name="edit_page_count" value="${bookData.page_count}" required />
-
-    <label for="edit_print_type">Print Type:</label>
-    <input type="text" id="edit_print_type" name="edit_print_type" value="${bookData.print_type}" required />
-
-    <label for="edit_categories">Categories:</label>
-    <input type="text" id="edit_categories" name="edit_categories" value="${bookData.categories}" required />
-
-    <label for="edit_maturity_rating">Maturity Rating:</label>
-    <input type="text" id="edit_maturity_rating" name="edit_maturity_rating" value="${bookData.maturity_rating}" required/>
-
-    <label for="edit_language">Language:</label>
-    <input type="text" id="edit_language" name="edit_language" value="${bookData.language}" required />
-
-    <label for="edit_pdf_download_link">PDF Download Link:</label>
-    <input type="text" id="edit_pdf_download_link" name="edit_pdf_download_link" value="${bookData.pdf_download_link}" required />
-
-    <label for="edit_thumbnail">Thumbnail:</label>
-    <input type="text" id="edit_thumbnail" name="edit_thumbnail" value="${bookData.thumbnail}" required />
-
-    <div class="buttons-form">
-      <button class="cancelButtonForm" id="cancelForm">Cancel</button>
-      <button class="editButtonForm" id="updateBook">Update</button>
-    </div>
-  </form>
-`;
+          <label for="edit_published_date">Published Date:</label>
+          <input type="text" id="edit_published_date" name="edit_published_date" value="${bookData.published_date}" required />
+        </div>
+        <div class="form-column">
+          <label for="edit_page_count">Page Count:</label>
+          <input type="text" id="edit_page_count" name="edit_page_count" value="${bookData.page_count}" required />
+    
+          <label for="edit_print_type">Print Type:</label>
+          <input type="text" id="edit_print_type" name="edit_print_type" value="${bookData.print_type}" required />
+    
+          <label for="edit_categories">Categories:</label>
+          <input type="text" id="edit_categories" name="edit_categories" value="${bookData.categories}" required />
+    
+          <label for="edit_maturity_rating">Maturity Rating:</label>
+          <input type="text" id="edit_maturity_rating" name="edit_maturity_rating" value="${bookData.maturity_rating}" required/>
+    
+          <label for="edit_language">Language:</label>
+          <input type="text" id="edit_language" name="edit_language" value="${bookData.language}" required />
+    
+          <label for="edit_pdf_download_link">PDF Download Link:</label>
+          <input type="text" id="edit_pdf_download_link" name="edit_pdf_download_link" value="${bookData.pdf_download_link}" required />
+    
+          <label for="edit_thumbnail">Thumbnail:</label>
+          <input type="text" id="edit_thumbnail" name="edit_thumbnail" value="${bookData.thumbnail}" required />
+        </div>
+      </div>
+      <label for="edit_description">Description:</label>
+      <textarea id="edit_description" name="edit_description" required>${bookData.description}</textarea>
+      <div class="buttons-form">
+        <button class="cancelButtonForm" id="cancelForm">Cancel</button>
+        <button class="editButtonForm" id="updateBook">Update</button>
+      </div>
+    </form>
+    `;
+    
 
       // Agregar el formulario al cuerpo del documento
-      document.body.appendChild(editForm);
+      overlay.appendChild(editForm);
 
-      // Puedes agregar un listener para el botón de actualización dentro del formulario de edición
-      const updateButton = document.getElementById("updateBook");
-      const cancelButton = document.getElementById("cancelForm");
+      // Obtener los botones por su clase en lugar de ID
+      const cancelButton = editForm.querySelector(".cancelButtonForm");
+      const updateButton = editForm.querySelector(".editButtonForm");
 
       cancelButton.addEventListener("click", async function (event) {
         event.preventDefault();
@@ -434,16 +437,16 @@ document.addEventListener("DOMContentLoaded", function () {
     } catch (error) {
       if (error.response) {
         // El servidor respondió con un código de estado diferente de 2xx
-        console.log("Error de respuesta del servidor:", error.response.data);
+        console.log("Server response error:", error.response.data);
 
         // Mostrar el mensaje en una ventana emergente
         window.alert(error.response.data);
       } else if (error.request) {
         // La solicitud fue hecha pero no se recibió respuesta
-        console.log("No se recibió respuesta del servidor");
+        console.log("No response was received from the server");
       } else {
         // Algo sucedió en la configuración de la solicitud que provocó un error
-        console.error("Error al configurar la solicitud:", error.message);
+        console.error("Error configuring the request:", error.message);
       }
     }
   }
@@ -457,29 +460,29 @@ document.addEventListener("DOMContentLoaded", function () {
       );
   
       // Manejar la respuesta según sea necesario
-      console.log("Solicitud PATCH exitosa:", response.data);
+      console.log("Successful PATCH request:", response.data);
 
-      window.alert("Successfully edited book")
+      window.alert(`Book ${updatedBookData.title} has been correctly edited.`)
   
     } catch (error) {
       if (error.response) {
         // El servidor respondió con un código de estado diferente de 2xx
-        console.log("Error de respuesta del servidor:", error.response.data);
+        console.log("Server response error:", error.response.data);
   
         // Mostrar el mensaje de error al usuario
         window.alert(error.response.data);
       } else if (error.request) {
         // La solicitud fue hecha pero no se recibió respuesta
-        console.log("No se recibió respuesta del servidor");
+        console.log("No response was received from the server");
   
         // Mostrar un mensaje de error genérico al usuario
-        window.alert("Error al actualizar el libro. Inténtelo de nuevo más tarde.");
+        window.alert("Error updating the book. Please try again later.");
       } else {
         // Algo sucedió en la configuración de la solicitud que provocó un error
-        console.error("Error al configurar la solicitud:", error.message);
+        console.error("Error configuring the request:", error.message);
   
         // Mostrar un mensaje de error genérico al usuario
-        window.alert("Error al actualizar el libro. Inténtelo de nuevo más tarde.");
+        window.alert("Error updating the book. Please try again later.");
       }
     }
   }

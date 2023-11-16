@@ -313,14 +313,7 @@ func main() {
 	router.Handle("/books/names/{title}", http.HandlerFunc(db.readBookByName)).Methods(http.MethodGet)
 	router.Handle("/books/categories", http.HandlerFunc(db.listAllCategories)).Methods(http.MethodGet)
 
-	// http.ListenAndServe(":8080", router)
-
-	// http.ListenAndServe(":8080",
-	// 	handlers.CORS(
-	// 		handlers.AllowedOrigins([]string{"*"}),
-	// 		handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}),
-	// 		handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}),
-	// 	)(router))
+	//http.ListenAndServe(":8080", router)
 
 	headers := handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"})
 	methods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS", "PATCH", "DELETE"})
