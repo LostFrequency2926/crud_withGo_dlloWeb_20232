@@ -7,7 +7,7 @@
 
 @font-face {
   font-family: "single";
-  src: url(../fonts/Sageffine.otf)
+  src: url(../fonts/Queensides-3z7Ey.ttf)
 }
 
 @font-face {
@@ -50,7 +50,7 @@ nav ul {
 
 nav a {
   font-family: "Handmade", Arial; /*aplico la fuente customizada, sino es posible cargarla se aplicara el estilo Arial*/
-  font-size: xx-large;
+  font-size: large;
   text-decoration: none;
   color: white;
   font-weight: bold;
@@ -179,7 +179,7 @@ body {
 
 .card-info p {
   font-family: "single", Arial;
-  font-size: x-large;
+  font-size: large;
   margin-bottom: 4px;
   max-height: 100px;
   overflow: auto;
@@ -228,15 +228,19 @@ h2 {
 /* ___________________________________Estilos parael formulario ___________________________________________________*/
 
 #addBookForm {
+  margin-top: 15px;
+  margin-right: 15px;
   display: none;
   flex: 2;
   align-self: flex-start;
-  padding: 60px;
+  padding: 5px 60px;
   background-color: white;
   border-radius: 25px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  width: 80%;
+  width: 100%;
   max-width: 500px;
+  overflow-y: auto;
+  height: 740px;
 }
 
 #addBookForm h2 {
@@ -260,14 +264,14 @@ label {
 
 input,
 textarea {
-  font-weight: bold;
-  font-size: large;
+  /* font-weight: bold; */
+  font-size: medium;
   font-family: "single", Arial;
-  padding: 10px;
-  margin-bottom: 15px;
+  padding: 5px;
+  margin-bottom: 5px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  width: 100%;
+  width:auto;
   box-sizing: border-box;
   outline: none;
 }
@@ -344,7 +348,7 @@ button:hover {
 .edit-popup {
   height: auto;
   position: absolute;
-  top: 5%;
+  top: 2%;
   background-color: #fff;
   padding: 20px;
   border: 1px solid #ddd;
@@ -360,6 +364,32 @@ button:hover {
   .edit-popup{
     height: 700px;
     overflow-y: auto;
+  }
+
+  #addBookForm {
+    width: 800px;
+    height: 560px;
+    overflow-y: auto;
+  }
+
+  .cards-containers {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between;
+    align-items: start;
+  }
+
+  .card {
+    position: relative;
+    width: 450px;
+    height: auto;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: transform 0.3s ease-in-out;
   }
 }
 
