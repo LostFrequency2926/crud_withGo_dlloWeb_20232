@@ -16,7 +16,7 @@ type Handler struct {
 
 func NewHandler(controller *controllers.Controller) (*Handler, error) {
 	if controller == nil {
-		return nil, fmt.Errorf("para instanciar un handler se necesita un controlador no nulo")
+		return nil, fmt.Errorf("to instantiate a handler you need a non-null controller")
 	}
 	return &Handler{
 		controller: controller,
@@ -29,16 +29,16 @@ func (h *Handler) UpdateBookById(writer http.ResponseWriter, req *http.Request) 
 	id := vars["id"]
 	body, err := io.ReadAll(req.Body)
 	if err != nil {
-		log.Printf("fallo al actualizar un libro, con error: %s", err.Error())
-		http.Error(writer, fmt.Sprintf("fallo al actualizar un libro, con error: %s", err.Error()), http.StatusBadRequest)
+		log.Printf("failure to update a book, with error: %s", err.Error())
+		http.Error(writer, fmt.Sprintf("failure to update a book, with error: %s", err.Error()), http.StatusBadRequest)
 		return
 	}
 	defer req.Body.Close()
 
 	err = h.controller.UpdateBookById(body, id)
 	if err != nil {
-		log.Printf("fallo al actualizar un libro, con error: %s", err.Error())
-		http.Error(writer, fmt.Sprintf("fallo al actualizar un libro, con error: %s", err.Error()), http.StatusInternalServerError)
+		log.Printf("failure to update a book, with error: %s", err.Error())
+		http.Error(writer, fmt.Sprintf("failure to update a book, with error: %s", err.Error()), http.StatusInternalServerError)
 		return
 	}
 
@@ -51,9 +51,9 @@ func (h *Handler) DeleteBookById(writer http.ResponseWriter, req *http.Request) 
 	id := vars["id"]
 	err := h.controller.DeleteBookById(id)
 	if err != nil {
-		log.Printf("fallo al eliminar un libro, con error: %s", err.Error())
+		log.Printf("failure to delete a book, with error: %s", err.Error())
 		writer.WriteHeader(http.StatusInternalServerError)
-		writer.Write([]byte(fmt.Sprintf("fallo al eliminar un libro con id %s", id)))
+		writer.Write([]byte(fmt.Sprintf("failure to delete a book with id %s", id)))
 		return
 	}
 	writer.WriteHeader(http.StatusOK)
@@ -65,9 +65,9 @@ func (h *Handler) ReadBookByName(writer http.ResponseWriter, req *http.Request) 
 
 	libro, err := h.controller.ReadBookByName(title)
 	if err != nil {
-		log.Printf("fallo al leer un libro, con error: %s", err.Error())
+		log.Printf("failure to read a book, with error: %s", err.Error())
 		writer.WriteHeader(http.StatusNotFound)
-		writer.Write([]byte(fmt.Sprintf("el libro con id %s no se pudo encontrar", title)))
+		writer.Write([]byte(fmt.Sprintf("book with name %s could not be found", title)))
 		return
 	}
 	writer.WriteHeader(http.StatusOK)
@@ -81,9 +81,9 @@ func (h *Handler) ReadBookByCategory(writer http.ResponseWriter, req *http.Reque
 
 	libro, err := h.controller.ReadBookByCategory(category)
 	if err != nil {
-		log.Printf("fallo al leer un libro, con error: %s", err.Error())
+		log.Printf("failure to read a book, with error: %s", err.Error())
 		writer.WriteHeader(http.StatusNotFound)
-		writer.Write([]byte(fmt.Sprintf("el libro con id %s no se pudo encontrar", category)))
+		writer.Write([]byte(fmt.Sprintf("books with category %s could not be found", category)))
 		return
 	}
 	writer.WriteHeader(http.StatusOK)
@@ -97,9 +97,9 @@ func (h *Handler) ReadBookById(writer http.ResponseWriter, req *http.Request) {
 
 	libro, err := h.controller.ReadBookById(id)
 	if err != nil {
-		log.Printf("fallo al leer un libro, con error: %s", err.Error())
+		log.Printf("failure to read a book, with error: %s", err.Error())
 		writer.WriteHeader(http.StatusNotFound)
-		writer.Write([]byte(fmt.Sprintf("el libro con id %s no se pudo encontrar", id)))
+		writer.Write([]byte(fmt.Sprintf("book with id %s could not be found", id)))
 		return
 	}
 	writer.WriteHeader(http.StatusOK)
@@ -110,8 +110,8 @@ func (h *Handler) ReadBookById(writer http.ResponseWriter, req *http.Request) {
 func (h *Handler) ReadBooks(writer http.ResponseWriter, req *http.Request) {
 	libros, err := h.controller.ReadBooks(100, 0)
 	if err != nil {
-		log.Printf("fallo al leer libros, con error: %s", err.Error())
-		http.Error(writer, "fallo al leer los libros", http.StatusInternalServerError)
+		log.Printf("failure to read books, with error: %s", err.Error())
+		http.Error(writer, "failure to read books", http.StatusInternalServerError)
 		return
 	}
 	writer.WriteHeader(http.StatusOK)
@@ -123,19 +123,19 @@ func (h *Handler) CreateBook(writer http.ResponseWriter, req *http.Request) {
 	body, err := io.ReadAll(req.Body)
 
 	if err != nil {
-		log.Printf("fallo al crear un nuevo libro, con error: %s", err.Error())
-		http.Error(writer, "fallo al crear un nuevo libro", http.StatusBadRequest)
+		log.Printf("failure to create a new book, with error: %s", err.Error())
+		http.Error(writer, "failure to create a new book", http.StatusBadRequest)
 		return
 	}
 	defer req.Body.Close()
 
 	nuevoId, err := h.controller.CreateBook(body)
 	if err != nil {
-		log.Println("fallo al crear un nuevo libro, con error:", err.Error())
-		http.Error(writer, "fallo al crear un nuevo libro", http.StatusInternalServerError)
+		log.Println("failure to create a new book, with error:", err.Error())
+		http.Error(writer, "failure to create a new book", http.StatusInternalServerError)
 		return
 	}
 
 	writer.WriteHeader(http.StatusCreated)
-	writer.Write([]byte(fmt.Sprintf("id nuevo libro: %d", nuevoId)))
+	writer.Write([]byte(fmt.Sprintf("id new book: %d", nuevoId)))
 }

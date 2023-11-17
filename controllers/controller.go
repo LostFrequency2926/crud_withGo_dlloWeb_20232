@@ -27,7 +27,7 @@ type Controller struct {
 
 func NewController(repo repositorio.Repository[models.Book]) (*Controller, error) {
 	if repo == nil {
-		return nil, fmt.Errorf("para instanciar un controlador se necesita un repositorio no nulo")
+		return nil, fmt.Errorf("a non-null repository is needed to instantiate a driver")
 	}
 	return &Controller{
 		repo: repo,
@@ -57,21 +57,21 @@ func (c *Controller) UpdateBookById(reqBody []byte, id string) error {
 	nuevosValoresLibro := make(map[string]any)
 	err := json.Unmarshal(reqBody, &nuevosValoresLibro)
 	if err != nil {
-		log.Printf("fallo al actualizar un libro, con error: %s", err.Error())
-		return fmt.Errorf("fallo al actualizar un libro, con error: %s", err.Error())
+		log.Printf("failure to update a book, with error: %s", err.Error())
+		return fmt.Errorf("failure to update a book, with error: %s", err.Error())
 	}
 
 	if len(nuevosValoresLibro) == 0 {
-		log.Printf("fallo al actualizar un libro, con error: %s", err.Error())
-		return fmt.Errorf("fallo al actualizar un libro, con error: %s", err.Error())
+		log.Printf("failure to update a book, with error: %s", err.Error())
+		return fmt.Errorf("failure to update a book, with error: %s", err.Error())
 	}
 
 	query := construirUpdateQuery(nuevosValoresLibro)
 	nuevosValoresLibro["id"] = id
 	err = c.repo.Update(context.TODO(), query, nuevosValoresLibro)
 	if err != nil {
-		log.Printf("fallo al actualizar un libro, con error: %s", err.Error())
-		return fmt.Errorf("fallo al actualizar un libro, con error: %s", err.Error())
+		log.Printf("failure to update a book, with error: %s", err.Error())
+		return fmt.Errorf("failure to update a book, with error: %s", err.Error())
 	}
 	return nil
 }
@@ -79,8 +79,8 @@ func (c *Controller) UpdateBookById(reqBody []byte, id string) error {
 func (c *Controller) DeleteBookById(id string) error {
 	err := c.repo.Delete(context.TODO(), deleteQuery, id)
 	if err != nil {
-		log.Printf("fallo al eliminar un libro, con error: %s", err.Error())
-		return fmt.Errorf("fallo al eliminar un libro, con error: %s", err.Error())
+		log.Printf("failure to delete a book, with error: %s", err.Error())
+		return fmt.Errorf("failure to delete a book, with error: %s", err.Error())
 	}
 	return nil
 }
@@ -89,14 +89,14 @@ func (c *Controller) ReadBooks(limit, offset int) ([]byte, error) {
 
 	books, _, err := c.repo.List(context.TODO(), readAllQuery, limit, offset)
 	if err != nil {
-		log.Printf("fallo al leer los libros, con error: %s", err.Error())
-		return nil, fmt.Errorf("fallo al leer los libros, con error: %s", err.Error())
+		log.Printf("failure to read books, with error: %s", err.Error())
+		return nil, fmt.Errorf("failure to read books, with error: %s", err.Error())
 	}
 
 	jsonBooks, err := json.Marshal(books)
 	if err != nil {
-		log.Printf("fallo al leer los libros, con error: %s", err.Error())
-		return nil, fmt.Errorf("fallo al leer los libros, con error: %s", err.Error())
+		log.Printf("failure to read books, with error: %s", err.Error())
+		return nil, fmt.Errorf("failure to read books, with error: %s", err.Error())
 	}
 	return jsonBooks, nil
 }
@@ -106,8 +106,8 @@ func (c *Controller) CreateBook(reqBody []byte) (int64, error) {
 	newBook := &models.Book{}
 	err := json.Unmarshal(reqBody, newBook)
 	if err != nil {
-		log.Printf("fallo al crear un nuevo libro, con error: %s", err.Error())
-		return 0, fmt.Errorf("fallo al crear un nuevo libro, con error: %s", err.Error())
+		log.Printf("failure to create a new book, with error: %s", err.Error())
+		return 0, fmt.Errorf("failure to create a new book, with error: %s", err.Error())
 	}
 
 	valoresColumnasNuevoLibro := map[string]any{
@@ -130,8 +130,8 @@ func (c *Controller) CreateBook(reqBody []byte) (int64, error) {
 
 	nuevoId, err := c.repo.Create(context.TODO(), createQuery, valoresColumnasNuevoLibro)
 	if err != nil {
-		log.Printf("fallo al crear un nuevo libro, con error: %s", err.Error())
-		return 0, fmt.Errorf("fallo al crear un nuevo libro, con error: %s", err.Error())
+		log.Printf("failure to create a new book, with error: %s", err.Error())
+		return 0, fmt.Errorf("failure to create a new book, with error: %s", err.Error())
 	}
 	return nuevoId, nil
 }
@@ -140,14 +140,14 @@ func (c *Controller) ReadBookById(id string) ([]byte, error) {
 
 	book, err := c.repo.Read(context.TODO(), readByIdQuery, id)
 	if err != nil {
-		log.Printf("fallo al leer un libro, con error: %s", err.Error())
-		return nil, fmt.Errorf("fallo al leer un libro, con error: %s", err.Error())
+		log.Printf("failure to read a book, with error: %s", err.Error())
+		return nil, fmt.Errorf("failure to read a book, with error: %s", err.Error())
 	}
 
 	libroJson, err := json.Marshal(book)
 	if err != nil {
-		log.Printf("fallo al leer un libro, con error: %s", err.Error())
-		return nil, fmt.Errorf("fallo al leer un libro, con error: %s", err.Error())
+		log.Printf("failure to read a book, with error: %s", err.Error())
+		return nil, fmt.Errorf("failure to read a book, with error: %s", err.Error())
 	}
 	return libroJson, nil
 }
@@ -158,14 +158,14 @@ func (c *Controller) ReadBookByCategory(category string) ([]byte, error) {
 
 	book, _, err := c.repo.List(context.TODO(), query, 100, 0)
 	if err != nil {
-		log.Printf("fallo al leer un libro, con error: %s", err.Error())
-		return nil, fmt.Errorf("fallo al leer un libro, con error: %s", err.Error())
+		log.Printf("failure to read a book, with error: %s", err.Error())
+		return nil, fmt.Errorf("failure to read a book, with error: %s", err.Error())
 	}
 
 	libroJson, err := json.Marshal(book)
 	if err != nil {
-		log.Printf("fallo al leer un libro, con error: %s", err.Error())
-		return nil, fmt.Errorf("fallo al leer un libro, con error: %s", err.Error())
+		log.Printf("failure to read a book, with error: %s", err.Error())
+		return nil, fmt.Errorf("failure to read a book, with error: %s", err.Error())
 	}
 	return libroJson, nil
 }
@@ -176,14 +176,14 @@ func (c *Controller) ReadBookByName(title string) ([]byte, error) {
 
 	book, _, err := c.repo.List(context.TODO(), query, 100, 0)
 	if err != nil {
-		log.Printf("fallo al leer un libro, con error: %s", err.Error())
-		return nil, fmt.Errorf("fallo al leer un libro, con error: %s", err.Error())
+		log.Printf("failure to read a book, with error: %s", err.Error())
+		return nil, fmt.Errorf("failure to read a book, with error: %s", err.Error())
 	}
 
 	libroJson, err := json.Marshal(book)
 	if err != nil {
-		log.Printf("fallo al leer un libro, con error: %s", err.Error())
-		return nil, fmt.Errorf("fallo al leer un libro, con error: %s", err.Error())
+		log.Printf("failure to read a book, with error: %s", err.Error())
+		return nil, fmt.Errorf("failure to read a book, with error: %s", err.Error())
 	}
 	return libroJson, nil
 }
